@@ -9,16 +9,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.maiso.agenda.dao.AlunoDAO;
+import com.maiso.agenda.modelo.Aluno;
+
+import java.util.List;
+
 public class ListaAlunos extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
-        String [] alunos = {"Maison","Jose","Maison","Jose","Maison","Jose","Maison","Jose","Mateus","José"};
-        ListView lista = (ListView) findViewById(R.id.lista_alunos);
-        ArrayAdapter<String> listaadaptada = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,alunos);
-        lista.setAdapter(listaadaptada);
+
+        AlunoDAO dao = new AlunoDAO(this);
+        List<Aluno> alunos = dao.buscaAlunos();
+        dao.close();
+
+        //String [] alunos = {"Maison","Jose","Maison","Jose","Maison","Jose","Maison","Jose","Mateus","José"};
+        ListView listaAlunos = (ListView) findViewById(R.id.lista_alunos);
+        ArrayAdapter<Aluno> listaadaptada = new ArrayAdapter<Aluno>(this,android.R.layout.simple_list_item_1,alunos);
+        listaAlunos.setAdapter(listaadaptada);
 
         Button novo_aluno = (Button) findViewById(R.id.botao_adicionar);
         novo_aluno.setOnClickListener(new View.OnClickListener() {
