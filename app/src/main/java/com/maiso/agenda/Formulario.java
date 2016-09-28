@@ -7,14 +7,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.maiso.agenda.modelo.Aluno;
+
 public class Formulario extends AppCompatActivity {
+
+    private FormularioHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+         helper = new FormularioHelper(this);
     }
 
     @Override
@@ -28,7 +34,11 @@ public class Formulario extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
-                Toast.makeText(Formulario.this,"Aluno Salvo",Toast.LENGTH_LONG).show();
+                Aluno aluno = helper.getAluno();
+               
+
+
+                Toast.makeText(Formulario.this,"Aluno "+aluno.getNome()+" Salvo",Toast.LENGTH_LONG).show();
                 finish();
                 break;
         }
