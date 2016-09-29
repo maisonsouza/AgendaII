@@ -1,5 +1,6 @@
 package com.maiso.agenda;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.maiso.agenda.dao.AlunoDAO;
 import com.maiso.agenda.modelo.Aluno;
 
+import java.io.Serializable;
+
 public class Formulario extends AppCompatActivity {
 
     private FormularioHelper helper;
@@ -21,7 +24,13 @@ public class Formulario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-         helper = new FormularioHelper(this);
+        helper = new FormularioHelper(this);
+        Intent intent = getIntent();
+       Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
+        if(aluno!=null){
+            helper.preencheFormulario(aluno);
+        }
+
     }
 
     @Override

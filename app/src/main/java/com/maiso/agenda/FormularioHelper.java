@@ -5,6 +5,8 @@ import android.widget.RatingBar;
 
 import com.maiso.agenda.modelo.Aluno;
 
+import java.io.Serializable;
+
 /**
  * Created by maiso on 28/09/2016.
  */
@@ -16,6 +18,7 @@ public class FormularioHelper {
     private final EditText campoTelefone;
     private final EditText campoSite;
     private final RatingBar campoNota;
+    private Aluno aluno;
 
     public FormularioHelper(Formulario activity) {
         campoNome = (EditText) activity.findViewById(R.id.formulario_nome);
@@ -33,5 +36,14 @@ public class FormularioHelper {
         aluno.setSite(campoSite.getText().toString());
         aluno.setNota(Double.valueOf(campoNota.getProgress()));
         return aluno;
+    }
+
+    public void preencheFormulario(Aluno aluno) {
+        campoNome.setText(aluno.getNome());
+        campoEndereco.setText(aluno.getEndereco());
+        campoTelefone.setText(aluno.getTelefone());
+        campoSite.setText(aluno.getSite());
+        campoNota.setProgress(aluno.getNota().intValue());
+        this.aluno=aluno;
     }
 }

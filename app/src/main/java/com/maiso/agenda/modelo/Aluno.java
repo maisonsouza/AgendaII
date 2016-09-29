@@ -1,9 +1,11 @@
 package com.maiso.agenda.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by maiso on 28/09/2016.
  */
-public class Aluno {
+public class Aluno implements Serializable {
 
     private Long id;
     private String nome;

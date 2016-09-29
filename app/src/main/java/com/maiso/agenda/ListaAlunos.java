@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.maiso.agenda.dao.AlunoDAO;
 import com.maiso.agenda.modelo.Aluno;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ListaAlunos extends AppCompatActivity {
@@ -31,6 +32,9 @@ public class ListaAlunos extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
                 Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(position);
+                Intent vaiproFormulario = new Intent(ListaAlunos.this,Formulario.class);
+                vaiproFormulario.putExtra("aluno", aluno);
+                startActivity(vaiproFormulario);
                 Toast.makeText(ListaAlunos.this," Aluno "+aluno.getNome()+" ",Toast.LENGTH_SHORT).show();
 
 
