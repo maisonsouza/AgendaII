@@ -62,7 +62,6 @@ public class ListaAlunos extends AppCompatActivity {
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
         //String [] alunos = {"Maison","Jose","Maison","Jose","Maison","Jose","Maison","Jose","Mateus","José"};
-
         ArrayAdapter<Aluno> listaadaptada = new ArrayAdapter<Aluno>(this,android.R.layout.simple_list_item_1,alunos);
         listaAlunos.setAdapter(listaadaptada);
     }
@@ -87,7 +86,7 @@ public class ListaAlunos extends AppCompatActivity {
                 dao.deleta(aluno);
                 dao.close();
                 carregaLista();
-                Toast.makeText(ListaAlunos.this," Deletar o aluno "+aluno.getNome()+" ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListaAlunos.this," Aluno "+aluno.getNome()+" Excluído com sucesso ",Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

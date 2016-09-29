@@ -45,10 +45,15 @@ public class Formulario extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
                 Aluno aluno = helper.getAluno();
-               AlunoDAO dao = new AlunoDAO(this);
-                dao.insere(aluno);
+                AlunoDAO dao = new AlunoDAO(this);
+                if(aluno.getId() != null){
+                    dao.altera(aluno);
+                    Toast.makeText(Formulario.this,"Aluno "+aluno.getNome()+" Alterado com sucesso",Toast.LENGTH_LONG).show();
+                }else{
+                    dao.insere(aluno);
+                    Toast.makeText(Formulario.this,"Aluno "+aluno.getNome()+" Salvo com sucesso",Toast.LENGTH_LONG).show();
+                }
                 dao.close();
-                Toast.makeText(Formulario.this,"Aluno "+aluno.getNome()+" Salvo",Toast.LENGTH_LONG).show();
                 finish();
                 break;
         }
