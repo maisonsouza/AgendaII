@@ -1,6 +1,8 @@
 package com.maiso.agenda;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Browser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -18,6 +20,9 @@ import com.maiso.agenda.modelo.Aluno;
 
 import java.io.Serializable;
 import java.util.List;
+
+import static android.content.Intent.ACTION_VIEW;
+import static android.content.Intent.parseUri;
 
 public class ListaAlunos extends AppCompatActivity {
 
@@ -76,12 +81,15 @@ public class ListaAlunos extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+        MenuItem item_visitar = menu.add("Visitar Site");
         MenuItem deletar = menu.add("Deletar");
+        MenuItem item_enviarSms = menu.add("Enviar SMS");
+        MenuItem item_visualizarmapa = menu.add("Visualizar no mapa");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
                 AlunoDAO dao = new AlunoDAO(ListaAlunos.this);
                 dao.deleta(aluno);
                 dao.close();
@@ -90,6 +98,18 @@ public class ListaAlunos extends AppCompatActivity {
                 return false;
             }
         });
+
+        Intent intentvaiproSite = new Intent(ACTION_VIEW);
+        intentvaiproSite.setData(Uri.parse("http://"+aluno.getSite()));
+        item_visitar.setIntent(intentvaiproSite);
+
+        Intent intentvaiproSms = new Intent(ACTION_VIEW);
+        intentvaiproSms.setData(Uri.parse("sms:(92)"+aluno.getTelefone()));
+        item_enviarSms.setIntent(intentvaiproSms);
+
+        Intent intentvaiproMapa = new Intent(ACTION_VIEW);
+        intentvaiproMapa.setData(Uri.parse("geo:0,0?q="+aluno.getEndereco()));
+        item_visualizarmapa.setIntent(intentvaiproMapa);
     }
 
 
