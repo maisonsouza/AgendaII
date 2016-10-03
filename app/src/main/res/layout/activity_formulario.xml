@@ -8,25 +8,53 @@
     <LinearLayout
         android:id="@+id/activity_formulario"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:orientation="vertical"
         tools:context="com.maiso.agenda.Formulario">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="225dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/person"
+        android:background="#00A8EC"/>
+
+    <Button
+        android:id="@+id/formulario_botao_adicionar_imagem"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:text="+"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/fundo_camera" />
+
+</RelativeLayout>
+
 
         <EditText
             android:id="@+id/formulario_nome"
             android:hint="Nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/formulario_endereco"
             android:hint="Endereço"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/formulario_telefone"
             android:hint="Telefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/formulario_site"
             android:hint="Site"
