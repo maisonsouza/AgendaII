@@ -1,8 +1,11 @@
 package com.maiso.agenda;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Browser;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -20,7 +23,9 @@ import com.maiso.agenda.modelo.Aluno;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.jar.Manifest;
 
+import static android.content.Intent.ACTION_CALL;
 import static android.content.Intent.ACTION_VIEW;
 import static android.content.Intent.parseUri;
 
@@ -83,6 +88,20 @@ public class ListaAlunos extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+        final MenuItem item_ligar = menu.add("Ligar");
+        item_ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (ActivityCompat.checkSelfPermission(ListaAlunos.this, android.Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(ListaAlunos.this, new String[]{android.Manifest.permission.CALL_PHONE},123);
+                }else{
+                    Intent intentvaipraLigacao = new Intent(ACTION_CALL);
+                    intentvaipraLigacao.setData(Uri.parse("tel:"+aluno.getTelefone()));
+                    startActivity(intentvaipraLigacao);
+                }
+                return false;
+            }
+        });
         MenuItem item_visitar = menu.add("Visitar Site");
         MenuItem deletar = menu.add("Deletar");
         MenuItem item_enviarSms = menu.add("Enviar SMS");
@@ -110,7 +129,10 @@ public class ListaAlunos extends AppCompatActivity {
         Intent intentvaiproMapa = new Intent(ACTION_VIEW);
         intentvaiproMapa.setData(Uri.parse("geo:0,0?q="+aluno.getEndereco()));
         item_visualizarmapa.setIntent(intentvaiproMapa);
-    }
 
+
+
+
+    }
 
 }
