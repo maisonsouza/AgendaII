@@ -17,6 +17,7 @@
     android:layout_height="225dp">
 
     <ImageView
+        android:id="@+id/formulario_foto"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/person"
@@ -26,7 +27,7 @@
         android:id="@+id/formulario_botao_adicionar_imagem"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:text="+"
+        android:text=""
         android:textColor="#ffffff"
         android:textSize="40sp"
         android:layout_alignParentBottom="true"

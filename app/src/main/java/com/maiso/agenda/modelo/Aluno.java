@@ -1,5 +1,7 @@
 package com.maiso.agenda.modelo;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +15,16 @@ public class Aluno implements Serializable {
     private String endereco;
     private String site;
     private Double nota;
+    private String caminho_da_foto;
+
+    public String getCaminho_da_foto() {
+        return caminho_da_foto;
+    }
+
+    public void setCaminho_da_foto(String caminho_da_foto) {
+        this.caminho_da_foto = caminho_da_foto;
+    }
+
 
     public Long getId() {
         return id;
@@ -66,4 +78,4 @@ public class Aluno implements Serializable {
     public String toString() {
         return getId()+" - "+getNome();
     }
-}
+    }

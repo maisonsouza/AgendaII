@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.maiso.agenda.adapter.AlunosAdapter;
 import com.maiso.agenda.dao.AlunoDAO;
 import com.maiso.agenda.modelo.Aluno;
 
@@ -72,8 +73,9 @@ public class ListaAlunos extends AppCompatActivity {
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
         //String [] alunos = {"Maison","Jose","Maison","Jose","Maison","Jose","Maison","Jose","Mateus","José"};
-        ArrayAdapter<Aluno> listaadaptada = new ArrayAdapter<Aluno>(this,android.R.layout.simple_list_item_1,alunos);
-        listaAlunos.setAdapter(listaadaptada);
+        //ArrayAdapter<Aluno> listaadaptada = new ArrayAdapter<Aluno>(this,R.layout.item_lista,alunos);
+        AlunosAdapter adapter = new AlunosAdapter(this,alunos);
+        listaAlunos.setAdapter(adapter);
     }
 
 
