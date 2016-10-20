@@ -8,7 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuView;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -19,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.maiso.agenda.adapter.AlunosAdapter;
+import com.maiso.agenda.converter.AlunoConverter;
 import com.maiso.agenda.dao.AlunoDAO;
 import com.maiso.agenda.modelo.Aluno;
 
@@ -32,12 +35,18 @@ import static android.content.Intent.parseUri;
 
 public class ListaAlunos extends AppCompatActivity {
 
+    public static final int CODIGO_SMS = 2;
     private ListView listaAlunos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+
+        if (ActivityCompat.checkSelfPermission(ListaAlunos.this, android.Manifest.permission.RECEIVE_SMS)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ListaAlunos.this, new String[]{android.Manifest.permission.RECEIVE_SMS}, CODIGO_SMS);
+        }
+
          listaAlunos = (ListView) findViewById(R.id.lista_alunos);
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,6 +96,23 @@ public class ListaAlunos extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_lista_alunos,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_lista_alunos_enviar_notas:
+                new EnviaAlunosTask(this).execute();
+
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
@@ -104,6 +130,12 @@ public class ListaAlunos extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+
+
+
         MenuItem item_visitar = menu.add("Visitar Site");
         MenuItem deletar = menu.add("Deletar");
         MenuItem item_enviarSms = menu.add("Enviar SMS");

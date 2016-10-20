@@ -50,7 +50,7 @@ public class Formulario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent vai_pra_camera = new Intent(ACTION_IMAGE_CAPTURE);
-                caminhoFoto = "/storage/sdcard0/Agenda"+System.currentTimeMillis() + ".jpg";
+                caminhoFoto = getExternalFilesDir(null)+"/"+System.currentTimeMillis() + ".jpg";
                 File arquivo_foto = new File(caminhoFoto);
                 vai_pra_camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(arquivo_foto));
                startActivityForResult(vai_pra_camera, CODIGO_CAMERA);
